@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clinical Copilot / 临床搭档
 
-## Getting Started
+心理咨询师的 AI 工作台。不面向来访者，只服务咨询师本人。
 
-First, run the development server:
+## 它能做什么
+
+- **多流派分析镜子** — 精神动力学、CBT、人本、家庭系统、叙事、躯体导向，根据个案材料选择最有启发的视角
+- **个案管理** — 来访者档案、会话历史、附属文件，一站式管理
+- **个案概念化辅助** — AI 辅助识别模式、整理主题、纵向追踪变化
+- **督导辅助** — 觉察反移情、指出跨个案模式、提供思考框架
+- **疗愈素材生成** — 基于个案情况定制练习、心理教育材料、体验性活动
+
+## 技术栈
+
+- Next.js 16 + React 19 + Tailwind CSS 4
+- OpenAI 兼容 API（默认智谱 GLM-4-Plus，可切换其他模型）
+- 本地文件存储，无需数据库
+
+## 快速开始
 
 ```bash
+git clone https://github.com/doorzhou/clinical-copilot.git
+cd clinical-copilot
+npm install
+cp .env.example .env.local   # 填入你的 API Key
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 配置
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+复制 `.env.example` 为 `.env.local`，填入你的 API Key：
 
-## Learn More
+```env
+ZHIPU_API_KEY=你的智谱API密钥
+ZHIPU_MODEL=glm-4-plus          # 可选：glm-4-plus, glm-4, glm-4-long, glm-4-flash
+```
 
-To learn more about Next.js, take a look at the following resources:
+API Key 也可以在应用内的设置面板中配置。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 项目结构
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/
+├── app/
+│   ├── api/          # 后端路由（个案、对话、日历、配置）
+│   ├── prompts/      # 系统提示词
+│   └── page.tsx      # 入口
+├── components/       # UI 组件（侧边栏、对话、文件浏览器、日历等）
+└── lib/
+    └── data.ts       # 数据层（文件读写）
+```
 
-## Deploy on Vercel
+## 设计原则
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **咨询师优先** — 工具辅助分析，不替代判断，最终决策权在咨询师
+- **本地优先** — 数据存在本地，不上传云端，保护来访者隐私
+- **单用户** — 当前版本为个人使用设计
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT

@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# 本地数据（含 API 密钥和用户对话）
+/data/
 
 # vercel
 .vercel
